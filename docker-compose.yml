@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3.8'
 
 services:
@@ -90,3 +91,97 @@ services:
 
 networks:
   analytics-net:
+=======
+version: '3.8'
+
+services:
+  citus_master:
+    image: citusdata/citus:12.1
+    container_name: citus_master
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/citus_master_data:/var/lib/postgresql/data
+      - ./citus-init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - analytics-net
+
+  citus_worker_1:
+    image: citusdata/citus:12.1
+    container_name: citus_worker_1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/citus_worker1_data:/var/lib/postgresql/data
+    networks:
+      - analytics-net
+
+  citus_worker_2:
+    image: citusdata/citus:12.1
+    container_name: citus_worker_2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/citus_worker2_data:/var/lib/postgresql/data
+    networks:
+      - analytics-net
+
+  metabase:
+    image: metabase/metabase
+    container_name: metabase
+    ports:
+      - "3003:3000"
+    volumes:
+      - ./data/metabase_data:/metabase-data
+    networks:
+      - analytics-net
+
+  superset:
+    build:
+      context: ./superset
+    container_name: superset
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_LOAD_EXAMPLES: "no"
+      ADMIN_USERNAME: admin
+      ADMIN_FIRSTNAME: Admin
+      ADMIN_LASTNAME: User
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin
+      SUPERSET_DATABASE_URI: postgresql://postgres:postgres@citus_master:5432/analytics
+      SUPERSET_SECRET_KEY: "x9DcU9z6WckJWf8w2kAalSHJAfZyQ7ITEEXBQKUtJsbivpc0f71BxqNE"
+      PYTHONPATH: "/app/pythonpath"
+    volumes:
+      - ./data/superset_home:/app/superset_home
+    networks:
+      - analytics-net
+    command: >
+      bash -c "
+        sleep 10 &&
+        superset db upgrade &&
+        superset fab create-admin \
+          --username ${ADMIN_USERNAME} \
+          --firstname ${ADMIN_FIRSTNAME} \
+          --lastname ${ADMIN_LASTNAME} \
+          --email ${ADMIN_EMAIL} \
+          --password ${ADMIN_PASSWORD} || true &&
+        superset init &&
+        superset run -h 0.0.0.0 -p 8088"
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - analytics-net
+
+networks:
+  analytics-net:
+>>>>>>> bf48ce0cd31e573436ed1a1ecdcc1f026c297e9e
