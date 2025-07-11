@@ -1,0 +1,6 @@
+sale_id,region,product,amount,sale_date
+1,East,Widget A,100,2024-01-01
+2,West,Widget B,200,2024-01-02
+3,East,Widget A,150,2024-01-03
+4,South,Widget C,300,2024-01-04
+5,North,Widget B,400,2024-01-05
