@@ -8,7 +8,7 @@
 
 ## Buat folder data
 ```
-cd-pganalytic-docker
+cd pg-analytic-docker
 mkdir data
 ```
 ## kemudian jalankan command di bawah:
