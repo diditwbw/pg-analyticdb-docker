@@ -14,4 +14,8 @@ mkdir data
 ## kemudian jalankan command di bawah:
 ```
 docker compose up -d
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 5183ee9 (Resolve merge conflicts from pulling origin/main 1)

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5183ee9 (Resolve merge conflicts from pulling origin/main 1)
 greenlet==3.2.3
 numpy==2.3.1
 pandas==2.3.1
@@ -8,6 +11,7 @@ six==1.17.0
 SQLAlchemy==2.0.41
 typing_extensions==4.14.1
 tzdata==2025.2
+<<<<<<< HEAD
 =======
 greenlet==3.2.3
 numpy==2.3.1
@@ -19,3 +23,5 @@ SQLAlchemy==2.0.41
 typing_extensions==4.14.1
 tzdata==2025.2
 >>>>>>> bf48ce0cd31e573436ed1a1ecdcc1f026c297e9e
+=======
+>>>>>>> 5183ee9 (Resolve merge conflicts from pulling origin/main 1)
